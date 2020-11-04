@@ -1,5 +1,5 @@
 # listApp
-a to do list to structur your day. 
+a to do list to structure your day. 
 #technologies used :
   ->Back end :
       1- asp.net core (web api);
