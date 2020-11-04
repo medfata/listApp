@@ -26,11 +26,13 @@ ul {
 }
 ul li {
     display: block;
+    padding-left: 8px;
 }
 .list_section{
     background-color: red;
    display: grid;
    grid-template-rows: 10% 90%;
+   overflow: auto;
 }
 .list_managment{
 background-color: yellow;
@@ -59,7 +61,7 @@ background-color: yellow;
 }
 .list_section ul li {
     
-    padding: 0;
+ 
     height:30px;
     line-height: 30px;
     width: 90%;
