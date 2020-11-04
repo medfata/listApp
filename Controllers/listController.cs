@@ -89,7 +89,7 @@ namespace listApp.Data
         }  
 
          [HttpPut]
-        [Route("lists/{id}")]
+        [Route("items/{id}")]
         public async Task<IActionResult> updateItem(int id, item it){
             if(id  != it.id){
                 return BadRequest();
@@ -107,6 +107,7 @@ namespace listApp.Data
             }
             return NoContent();
         }  
+        
         //delete methods for list and item
          [HttpDelete]
         [Route("items/{id}")]
