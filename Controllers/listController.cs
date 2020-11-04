@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using listApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace listApp.Data
 {
@@ -64,7 +65,27 @@ namespace listApp.Data
             this.db.item.Add(it);
             await this.db.SaveChangesAsync();
             return CreatedAtAction(nameof(GetItem), new{id = it.id},it);
-        }      
+        }   
+
+        [HttpPut]
+        [Route("lists/{id}")]
+        public async Task<IActionResult> updateList(int id, list li){
+            if(id  != li.id){
+                return BadRequest();
+            }
+            this.db.Entry(li).State = EntityState.Modified;
+            var list = this.GetList(li.id);
+            try {
+                await this.db.SaveChangesAsync();
+            }catch(DbUpdateConcurrencyException){
+                if(list == null ){
+                    return NotFound();
+                }else{
+                    throw;
+                }
+            }
+            return NoContent();
+        }  
         
     }
 }
