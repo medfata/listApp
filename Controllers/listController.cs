@@ -5,6 +5,7 @@ using listApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace listApp.Data
 {
      [ApiController]
@@ -66,7 +67,7 @@ namespace listApp.Data
             await this.db.SaveChangesAsync();
             return CreatedAtAction(nameof(GetItem), new{id = it.id},it);
         }   
-
+        //methods to update list and item
         [HttpPut]
         [Route("lists/{id}")]
         public async Task<IActionResult> updateList(int id, list li){
@@ -86,6 +87,51 @@ namespace listApp.Data
             }
             return NoContent();
         }  
-        
+
+         [HttpPut]
+        [Route("lists/{id}")]
+        public async Task<IActionResult> updateItem(int id, item it){
+            if(id  != it.id){
+                return BadRequest();
+            }
+            this.db.Entry(it).State = EntityState.Modified;
+            var item = this.GetItem(it.id);
+            try {
+                await this.db.SaveChangesAsync();
+            }catch(DbUpdateConcurrencyException){
+                if(item == null ){
+                    return NotFound();
+                }else{
+                    throw;
+                }
+            }
+            return NoContent();
+        }  
+        //delete methods for list and item
+         [HttpDelete]
+        [Route("items/{id}")]
+        public async Task<ActionResult<item>> deleteItem(int id){
+             var item = await this.db.item.FindAsync(id);
+            if(item  == null){
+                return BadRequest();
+            }
+            this.db.item.Remove(item);
+            await this.db.SaveChangesAsync();
+            return item;
+        } 
+        [HttpDelete]
+        [Route("lists/{id}")]
+        public async Task<ActionResult<list>> deleteList(int id){
+            var list = await this.db.list.FindAsync(id);
+            if(list == null){
+                return BadRequest();
+            }
+            var items = this.dbClass.GetlistItems(id);
+            this.db.list.Remove(list);  
+            this.db.item.RemoveRange(items);
+            await this.db.SaveChangesAsync();
+
+            return list;
+        }       
     }
 }
