@@ -1,11 +1,17 @@
 body{
     width: 60%;
     height: 600px;
-    background-color: darkgrey;
     display: grid;
     grid-template-rows: 10% 90%;
     margin: auto;
     margin-top: 10px;
+}
+.borderManagement{
+    width: 95%;
+    height: 95%;
+    box-sizing: border-box;
+    margin: auto;
+    border-radius: 10px;
 }
 .header{
     background-color: black;
@@ -29,13 +35,14 @@ ul li {
     padding-left: 8px;
 }
 .list_section{
-    background-color: red;
    display: grid;
    grid-template-rows: 10% 90%;
    overflow: auto;
+   font-size: smaller;
+   border: none;
 }
 .list_managment{
-background-color: yellow;
+
 }
 .item_section{
     background-color: blue;
@@ -64,9 +71,9 @@ background-color: yellow;
  
     height:30px;
     line-height: 30px;
-    width: 90%;
-
-    background-color: green;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
    
 }
 .item_section ul li {
