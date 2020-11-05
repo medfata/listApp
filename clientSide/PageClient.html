@@ -7,6 +7,9 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel='stylesheet' type='text/css' media='screen' href='pageClient.css'>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src='app.js'></script>
 </head>
 <body>
@@ -16,7 +19,7 @@
     <div class="body">
         <div class="list_section borderManagement">
             <div class="list_managment">
-                <button class="btn btn-outline-primary" style="width: 95%; height: 95%; border-radius: 10px;display: grid; margin: auto; line-height: 45px;padding: 0;">    
+                <button  class="text-white btn bg-primary" data-toggle="modal" data-target="#exampleModal" style="width: 95%; height: 95%; border-radius: 10px;display: grid; margin: auto; line-height: 45px;padding: 0;">    
                     Add a List 
                 </button>
             </div>
@@ -29,5 +32,59 @@
             </ul>
         </div>
     </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add a new List :</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">List Name :</label>
+                <input type="email" class="form-control" id="ListName" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted">dont enter duplicate !</small>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+          <button type="button" class="btn btn-primary" id="NewList">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+        });
+        $("#NewList").on( "click", function() {
+           let listname =  $("#ListName").value;
+            $.post('superman', { name:listname}, 
+                function(returnedData){
+                    let listUl = document.querySelector('.list_section ul');
+                    let list = JSON.parse(returnedData); 
+            let li = document.createElement("li");  
+            li.id = list.id;
+            li.className  =" btn-outline-info border border-info";
+            li.innerHTML =`<span>${list.name}</span>
+            <svg style="float:right;position: relative;right:20px;top: 9px;" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-square btn-outline-dark" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+            <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg>
+            <svg style="float:right;position: relative;left:9px;top: 9px;" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill btn-outline-danger" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+            </svg>`;
+                    
+          listUl.appendChild(li);
+            }).fail(function(){
+                console.log("error");
+            });
+    
+        });
+   </script>
 </body>
 </html>
