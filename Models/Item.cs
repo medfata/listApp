@@ -7,5 +7,6 @@ namespace listApp.Models
         public string value { get; set; }
         public bool done { get; set; }
         public int listId{get;set;}
+        
     }
 }
