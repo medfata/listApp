@@ -13,13 +13,13 @@
     <script src='app.js'></script>
 </head>
 <body>
-    <div class="header borderManagement">
-
+    <div class="rounded bg-secondary">
+        <button style="font-size: larger;position: relative; top: 9px;left:10px;" class="btn btn-outline-primary">To Do List</button>
     </div>
     <div class="body">
         <div class="list_section borderManagement">
             <div class="list_managment">
-                <button  class="text-white btn bg-primary" data-toggle="modal" data-target="#exampleModal" style="width: 95%; height: 95%; border-radius: 10px;display: grid; margin: auto; line-height: 45px;padding: 0;">    
+                <button id="addlist"  class="text-white btn bg-primary" data-toggle="modal" data-target="#exampleModal" style="width: 95%; height: 95%; border-radius: 10px;display: grid; margin: auto; line-height: 45px;padding: 0;">    
                     Add a List 
                 </button>
             </div>
@@ -33,7 +33,7 @@
         </div>
     </div>
   
-  <!-- Modal -->
+  <!-- adding a list Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -43,16 +43,44 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-            <div class="form-group">
+        <div id="modal_body" class="modal-body">
+              <!--place holder for the modal-->
+              <div class="form-group">
                 <label for="exampleInputEmail1">List Name :</label>
                 <input type="email" class="form-control" id="ListName" aria-describedby="emailHelp">
                 <small id="emailHelp" class="form-text text-muted">dont enter duplicate !</small>
               </div>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
           <button type="button" class="btn btn-primary" id="NewList">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--adding an item modal-->
+  <div class="modal fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="itemModalLabel">:</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="modal_body" class="modal-body">
+              <!--place holder for the modal-->
+              <div class="form-group">
+                <label for="exampleInputEmail1">Item Name :</label>
+                <input type="text" class="form-control" id="itemValue" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted">dont enter duplicate !</small>
+              </div>
+              
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+          <button type="button" class="btn btn-primary" id="NewItem">Add</button>
         </div>
       </div>
     </div>
