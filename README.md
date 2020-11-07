@@ -8,4 +8,13 @@ a to do list to structure your day.
   ->front end :
       using basic technologie : html - css - js;
  ->Images :
+ -adding an Item :
  ![alt text](https://github.com/medfata/listApp/blob/main/images/addingItem.PNG)
+ -adding a List :
+ ![alt text](https://github.com/medfata/listApp/blob/main/images/addingList.PNG)
+ -full screen :
+ -[alt text](https://github.com/medfata/listApp/blob/main/images/allScreenCapture.PNG)
+  -mobile Lists screen :
+  -[alt text](https://github.com/medfata/listApp/blob/main/images/mobileList.PNG)
+  -mobile screen :
+  -[alt text](https://github.com/medfata/listApp/blob/main/images/mobileList.PNG)
