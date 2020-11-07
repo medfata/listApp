@@ -17,4 +17,4 @@ a to do list to structure your day.
   # mobile Lists screen :
   ![alt text](https://github.com/medfata/listApp/blob/main/images/mobileList.PNG)
   # mobile screen :
-  ![alt text](https://github.com/medfata/listApp/blob/main/images/mobileList.PNG)
+  ![alt text](https://github.com/medfata/listApp/blob/main/images/mobileResult.PNG)
