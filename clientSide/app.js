@@ -7,7 +7,7 @@ myfunc = function(){
     xhr.onreadystatechange = ()  => {
         let listUl = document.querySelector('.list_section ul');
         if(xhr.readyState == 4){
-
+                listUl.innerHTML = "";
             JSON.parse(xhr.response).forEach(list =>{
   
                 let li = document.createElement("li");

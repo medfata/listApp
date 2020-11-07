@@ -11,8 +11,9 @@ namespace listApp.Data
      [ApiController]
     public class listController : ControllerBase
     {
-        private listRepo dbClass = new listRepo();
+        private  listRepo dbClass = new listRepo();
         //get Methods
+    
         [HttpGet]
         [Route("lists")]
         public IEnumerable<list> GetList(){
