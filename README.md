@@ -7,3 +7,5 @@ a to do list to structure your day.
       3- entityFramework core (orm);
   ->front end :
       using basic technologie : html - css - js;
+ ->Images :
+ ![alt text](https://github.com/medfata/listApp/blob/main/images/addingItem.PNG)
