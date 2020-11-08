@@ -19,7 +19,7 @@ myfunc = function(){
                 <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                 <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                 </svg>
-                <svg style="float:right;position: relative;left:9px;top: 9px;" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill btn-outline-danger" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <svg id="deleteList${list.id}" style="float:right;position: relative;left:9px;top: 9px;" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill btn-outline-danger" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
                 </svg>`;
                         
@@ -34,6 +34,13 @@ myfunc = function(){
                     
                     document.getElementById("itemModalLabel").textContent = `Add an Item to ${list.name}`;
                     document.querySelector("#modal_body label").id = list.id;
+                });
+                document.getElementById(`deleteList${list.id}`).addEventListener("click", function(){
+                    if(confirm(`deleting ${list.name}`)){
+                        deleteList(list);
+                    }else{ 
+                        return;
+                    }
                 })
             });
         }
@@ -57,13 +64,21 @@ getItems = function(id){
                 let li = document.createElement("li");
                 li.className = " text-white bg-info border border-info";
                 li.id = item.id;
-                li.innerHTML = `<span style="padding:5px">${item.value} -State: ${done}</span><svg style="cursor: pointer;float:right;position: relative;right:5px;top: 13px;" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill btn-outline-danger" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                li.innerHTML = `<span  style="padding:5px">${item.value} -State: ${done}</span><svg id="item${item.id}" style="cursor: pointer;float:right;position: relative;right:5px;top: 13px;" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill btn-outline-danger" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
               </svg>`;
               li.style.borderRadius = "5px";
   
                 itemUl.appendChild(li);
-       
+
+                document.getElementById(`item${item.id}`).addEventListener("click", (e) => {
+                    if(confirm(`deleting ${item.value}`)){
+                        deleteItem(item);
+                        
+                    }else{
+                        return;
+                    }
+                })
             
             });
         }
@@ -74,6 +89,37 @@ getItems = function(id){
     xhr.open("GET", `http://localhost:5000/listItems/${id}`,true);
     xhr.send();
 }
-//
+//delete a list 
+deleteList = function(list){
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () =>{
+        if(xhr.readyState == 4){
+                let list = JSON.parse(xhr.responseText);
+                alert(`${list.name} has been deleted !`);
+                myfunc();
+
+        }
+    }
+
+        xhr.open("DELETE", `https://localhost:5001/lists/${list.id}`, true);
+        xhr.send();
+  
+}
+//delete an item 
+deleteItem = function(item){
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () =>{
+        if(xhr.readyState == 4){
+                let list = JSON.parse(xhr.responseText);
+                alert(`${item.value} has been deleted !`);
+                myfunc();
+                getItems(item.listId);
+        }
+    }
+
+        xhr.open("DELETE", `https://localhost:5001/items/${item.id}`, true);
+        xhr.send();
+  
+}
 
 
